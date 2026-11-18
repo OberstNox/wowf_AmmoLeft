@@ -1,0 +1,7 @@
+## Interface: 16001
+## Title: AmmoLeft
+## Notes: Shows how much of your selected ammunition you have left.
+## Version: 1.0.0
+## SavedVariablesPerCharacter: AmmoLeftDB
+
+AmmoLeft.lua
