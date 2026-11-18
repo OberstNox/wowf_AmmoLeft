@@ -1,4 +1,9 @@
-# AmmoLeft changelog
+# Ammoleft Forever changelog
+
+## 1.3.1
+
+- Renamed the addon to Ammoleft Forever in the AddOns list and settings.
+- Added a custom arrow-and-cartridge icon to the AddOns list.
 
 ## 1.3.0
 

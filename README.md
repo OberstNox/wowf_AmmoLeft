@@ -1,18 +1,18 @@
-# AmmoLeft
+# Ammoleft Forever
 
-AmmoLeft is a movable ammunition counter for Hunters in **World of Warcraft: Forever**. It shows the icon and total carried count of your selected arrows or bullets, including stacks spread across your bags. The counter stays visible in combat and when you run out.
+Ammoleft Forever is a movable ammunition counter for Hunters in **World of Warcraft: Forever**. It shows the icon and total carried count of your selected arrows or bullets, including stacks spread across your bags. The counter stays visible in combat and when you run out.
 
 ## Installation
 
 1. Download the ZIP from **Code → Download ZIP** and extract it.
 2. Copy the inner `AmmoLeft` folder into `World of Warcraft\_forever_\Interface\AddOns`. You should end up with `AddOns\AmmoLeft\AmmoLeft.toc`.
-3. Start WoW Forever and make sure **AmmoLeft** is enabled in the **AddOns** list. If the game was open while you copied the files, close it completely and start it again.
+3. Start WoW Forever and make sure **Ammoleft Forever** is enabled in the **AddOns** list. If the game was open while you copied the files, close it completely and start it again.
 
 ## Controls
 
 - Hold **Alt** and drag with the left mouse button to move the counter.
-- Click the AmmoLeft icon on the minimap to open settings, or drag it around the edge of the minimap to move it. Its position is saved per character.
-- You can also open settings with `/ammoleft` or via **Options → AddOns → AmmoLeft**.
+- Click the addon icon on the minimap to open settings, or drag it around the edge of the minimap to move it. Its position is saved per character.
+- You can also open settings with `/ammoleft` or via **Options → AddOns → Ammoleft Forever**.
 - Type `/ammoleft reset` to put the counter back in its default position.
 
 ## Settings

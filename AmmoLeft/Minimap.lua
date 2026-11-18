@@ -1,4 +1,4 @@
-local _, addon = ...
+local addonName, addon = ...
 
 function addon.CreateMinimapButton()
     local button = CreateFrame("Button", "AmmoLeftMinimapButton", Minimap)
@@ -54,7 +54,7 @@ function addon.CreateMinimapButton()
     end)
     button:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:SetText("AmmoLeft")
+        GameTooltip:SetText(C_AddOns.GetAddOnMetadata(addonName, "Title"))
         GameTooltip:AddLine("Click to open settings", 1, 1, 1)
         GameTooltip:AddLine("Drag to move the button", 1, 1, 1)
         GameTooltip:Show()
