@@ -1,5 +1,9 @@
 # Ammoleft Forever changelog
 
+## 1.3.2
+
+- Added an item tooltip when hovering over the counter's ammunition icon.
+
 ## 1.3.1
 
 - Renamed the addon to Ammoleft Forever in the AddOns list and settings.

@@ -64,6 +64,34 @@ local function IsReadable(value)
     return not issecretvalue or not issecretvalue(value)
 end
 
+local iconHover = CreateFrame("Frame", nil, frame)
+iconHover:SetAllPoints(icon)
+iconHover:SetMouseClickEnabled(false)
+iconHover:SetMouseMotionEnabled(true)
+
+local tooltipItem, tooltipEmpty
+local function ShowAmmoTooltip()
+    GameTooltip:SetOwner(iconHover, "ANCHOR_RIGHT")
+    if tooltipItem then
+        GameTooltip:SetItemByID(tooltipItem)
+    elseif tooltipEmpty then
+        GameTooltip:SetText("No ammunition selected")
+    else
+        GameTooltip:SetText("Ammunition unavailable")
+    end
+    GameTooltip:Show()
+end
+
+local function HideAmmoTooltip()
+    if GameTooltip:IsOwned(iconHover) then
+        GameTooltip:Hide()
+    end
+end
+
+iconHover:SetScript("OnEnter", ShowAmmoTooltip)
+iconHover:SetScript("OnLeave", HideAmmoTooltip)
+iconHover:SetScript("OnHide", HideAmmoTooltip)
+
 local previousItem, previousCount
 local function Refresh(silent)
     if class ~= "HUNTER" then
@@ -73,12 +101,20 @@ local function Refresh(silent)
     local itemID = GetInventoryItemID("player", ammoSlot)
     local texture = GetInventoryItemTexture("player", ammoSlot)
     local readableItem = IsReadable(itemID)
+    local visibleItem = readableItem and itemID or nil
+    local empty = readableItem and not itemID and IsReadable(texture) and not texture
+    if tooltipItem ~= visibleItem or tooltipEmpty ~= empty then
+        tooltipItem, tooltipEmpty = visibleItem, empty
+        if GameTooltip:IsOwned(iconHover) then
+            ShowAmmoTooltip()
+        end
+    end
     local count
     if readableItem then
         if itemID then
             -- The Forever ammo slot already counts all carried stacks of this item.
             count = GetInventoryItemCount("player", ammoSlot)
-        elseif IsReadable(texture) and not texture then
+        elseif empty then
             count = 0
         end
     end
@@ -162,6 +198,7 @@ end
 
 frame:SetScript("OnDragStart", function(self)
     if IsAltKeyDown() then
+        HideAmmoTooltip()
         dragging = true
         self:StartMoving()
     end

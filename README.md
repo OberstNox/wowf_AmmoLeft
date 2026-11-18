@@ -10,6 +10,7 @@ Ammoleft Forever is a movable ammunition counter for Hunters in **World of Warcr
 
 ## Controls
 
+- Hover over the ammunition icon on the counter to see the active item's tooltip.
 - Hold **Alt** and drag with the left mouse button to move the counter.
 - Click the addon icon on the minimap to open settings, or drag it around the edge of the minimap to move it. Its position is saved per character.
 - You can also open settings with `/ammoleft` or via **Options → AddOns → Ammoleft Forever**.
