@@ -11,7 +11,8 @@ AmmoLeft is a movable ammunition counter for Hunters in **World of Warcraft: For
 ## Controls
 
 - Hold **Alt** and drag with the left mouse button to move the counter.
-- Type `/ammoleft` or go to **Options → AddOns → AmmoLeft** to open settings.
+- Click the AmmoLeft icon on the minimap to open settings, or drag it around the edge of the minimap to move it. Its position is saved per character.
+- You can also open settings with `/ammoleft` or via **Options → AddOns → AmmoLeft**.
 - Type `/ammoleft reset` to put the counter back in its default position.
 
 ## Settings

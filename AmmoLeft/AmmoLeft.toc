@@ -2,8 +2,9 @@
 ## Title: AmmoLeft
 ## Notes: Shows how much of your selected ammunition you have left.
 ## Author: OberstNox
-## Version: 1.1.0
+## Version: 1.2.0
 ## SavedVariablesPerCharacter: AmmoLeftDB
 
 AmmoLeft.lua
 Settings.lua
+Minimap.lua

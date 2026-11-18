@@ -192,6 +192,7 @@ frame:SetScript("OnEvent", function(self, event)
         if class ~= "HUNTER" then
             return
         end
+        addon.CreateMinimapButton()
         Place()
         ApplyAppearance()
         UpdateMouse()

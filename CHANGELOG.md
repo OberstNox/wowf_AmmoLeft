@@ -1,5 +1,9 @@
 # AmmoLeft changelog
 
+## 1.2.0
+
+- Added a draggable minimap button that opens AmmoLeft settings and saves its position per Hunter.
+
 ## 1.1.0
 
 - Added the AmmoLeft settings page and `/ammoleft` shortcut.
