@@ -304,8 +304,10 @@ function addon.RegisterSettings()
     criticalBox:SetScript("OnEnterPressed", SaveThresholds)
 
     Label(panel, "Appearance", 16, -252, "GameFontNormal")
+    Label(panel, "Counter preview", 16, -374, "GameFontNormal")
+    Label(panel, "Sample ammo count", 16, -393, "GameFontHighlightSmall")
     local preview = CreateFrame("Frame", nil, panel, "BackdropTemplate")
-    preview:SetPoint("LEFT", panel, "TOPLEFT", 304, -313)
+    preview:SetPoint("LEFT", panel, "TOPLEFT", 142, -384)
     local previewIcon = preview:CreateTexture(nil, "ARTWORK")
     previewIcon:SetPoint("LEFT", 6, 0)
     previewIcon:SetTexture(C_AddOns.GetAddOnMetadata(addonName, "IconTexture"))
@@ -361,7 +363,7 @@ function addon.RegisterSettings()
         SyncPreview()
     end
 
-    Button(panel, "Restore defaults", 16, -387, 133, function()
+    Button(panel, "Restore defaults", 16, -433, 133, function()
         addon.ResetOptions()
         SyncControls()
     end)
@@ -374,7 +376,7 @@ function addon.RegisterSettings()
         { "Alerts", popupCategory }, { "Profiles", profilesCategory }, { "Restock", restockCategory },
     }) do
         local destination = entry[2]
-        Button(panel, entry[1], 160 + (index - 1) * 88, -387, 82, function()
+        Button(panel, entry[1], 160 + (index - 1) * 88, -433, 82, function()
             Settings.OpenToCategory(destination:GetID())
         end)
     end

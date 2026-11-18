@@ -1,5 +1,9 @@
 # Ammoleft Forever changelog
 
+## 2.0.1
+
+- Moved the counter preview below the appearance sliders and labeled its sample count.
+
 ## 2.0.0
 
 - Added shared profiles, settings copying, and per-character position copying.
