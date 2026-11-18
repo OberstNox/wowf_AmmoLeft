@@ -10,6 +10,10 @@ local defaults = {
     sound = "off",
     size = 100,
     opacity = 86,
+    lowPopup = false,
+    criticalPopup = false,
+    lowMessage = "",
+    criticalMessage = "",
 }
 addon.defaults = defaults
 addon.sounds = {
@@ -94,9 +98,12 @@ local function Refresh(silent)
             warningItem = previousItem
         end
     end
-    if not silent and warningItem and previousItem == warningItem
-        and previousCount > options.critical and count <= options.critical then
-        addon.PlayWarning()
+    if not silent and warningItem and previousItem == warningItem then
+        if previousCount > options.critical and count <= options.critical then
+            addon.Notify("critical")
+        elseif previousCount > options.low and count <= options.low then
+            addon.Notify("low")
+        end
     end
     previousItem, previousCount = itemID, count
 
@@ -207,7 +214,7 @@ frame:SetScript("OnEvent", function(self, event)
         UpdateMouse()
         return
     end
-    Refresh(event == "PLAYER_LOGIN")
+    Refresh(event == "PLAYER_LOGIN" or event == "PLAYER_ENTERING_WORLD")
 end)
 
 SLASH_AMMOLEFT1 = "/ammoleft"

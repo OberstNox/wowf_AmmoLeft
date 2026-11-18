@@ -1,5 +1,11 @@
 # AmmoLeft changelog
 
+## 1.3.0
+
+- Added optional Low and Critical text alerts with custom messages and previews.
+- Added a movable preview that sets the shared alert position.
+- Reused the selected warning sound for Low alerts and kept the existing Critical sound behavior.
+
 ## 1.2.0
 
 - Added a draggable minimap button that opens AmmoLeft settings and saves its position per Hunter.

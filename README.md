@@ -19,7 +19,9 @@ AmmoLeft is a movable ammunition counter for Hunters in **World of Warcraft: For
 
 Choose normal, low, and critical count colors, adjust the warning thresholds, and change the counter size and background opacity. By default, the count turns yellow at **200** and red at **50**.
 
-The critical warning sound is off by default. You can choose a soft click or a raid warning and preview it in settings. When enabled, the sound plays once as the count crosses the critical threshold. It can play again after you replenish your ammo above that threshold.
+The warning sound is off by default. You can choose a soft click or a raid warning and preview it in settings. The selected sound plays on a Critical crossing and on a Low crossing when the Low pop-up is enabled.
+
+Open **Pop-up alerts** in settings to enable Low and Critical alerts separately. Each appears for three seconds when your ammo drops to its threshold. Set your own messages or leave the fields blank to use **Low ammo!** and **Critical ammo!**. Use the preview buttons to check the text and sound. Select **Move pop-up**, drag the preview, and click **Done moving** to set the position for both alerts.
 
 Settings and position are saved per character.
 

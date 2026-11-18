@@ -27,6 +27,57 @@ local function NumberBox(parent, x, y)
     return box
 end
 
+local function RegisterPopupSettings(parentCategory)
+    local panel = CreateFrame("Frame")
+    Label(panel, "Pop-up alerts", 16, -16, "GameFontNormalLarge")
+    Label(panel, "Leave a message blank to use the default text.", 16, -45, "GameFontHighlightSmall")
+    local controls = {}
+
+    for index, entry in ipairs({
+        { level = "low", label = "Low" },
+        { level = "critical", label = "Critical" },
+    }) do
+        local level = entry.level
+        local y = -72 - (index - 1) * 78
+        local enabledKey, messageKey = level .. "Popup", level .. "Message"
+        local check = CreateFrame("CheckButton", nil, panel, "UICheckButtonTemplate")
+        check:SetPoint("TOPLEFT", 14, y)
+        check:SetScript("OnClick", function(self)
+            addon.options[enabledKey] = not not self:GetChecked()
+        end)
+        Label(panel, entry.label, 46, y - 8)
+
+        local box = CreateFrame("EditBox", nil, panel, "InputBoxTemplate")
+        box:SetPoint("TOPLEFT", 21, y - 34)
+        box:SetSize(244, 24)
+        box:SetAutoFocus(false)
+        box:SetMaxLetters(100)
+        box:SetScript("OnEnterPressed", box.ClearFocus)
+        box:SetScript("OnEscapePressed", box.ClearFocus)
+        box:SetScript("OnTextChanged", function(self, userInput)
+            if userInput then
+                addon.options[messageKey] = self:GetText()
+            end
+        end)
+        Button(panel, "Preview " .. entry.label, 281, y - 34, 125, function()
+            box:ClearFocus()
+            addon.PreviewAlert(level)
+        end)
+        controls[index] = { check = check, box = box, enabledKey = enabledKey, messageKey = messageKey }
+    end
+
+    Button(panel, "Move pop-up", 16, -241, 130, addon.StartMovingAlert)
+    Label(panel, "Both alerts use the same position.", 16, -275, "GameFontHighlightSmall")
+    panel:SetScript("OnShow", function()
+        for _, control in ipairs(controls) do
+            control.check:SetChecked(addon.options[control.enabledKey])
+            control.box:SetText(addon.options[control.messageKey])
+        end
+    end)
+    panel:SetScript("OnHide", addon.StopMovingAlert)
+    return Settings.RegisterCanvasLayoutSubcategory(parentCategory, panel, "Pop-up alerts")
+end
+
 function addon.RegisterSettings()
     local panel = CreateFrame("Frame")
     local version = C_AddOns.GetAddOnMetadata(addonName, "Version")
@@ -94,7 +145,7 @@ function addon.RegisterSettings()
     lowBox:SetScript("OnEnterPressed", SaveThresholds)
     criticalBox:SetScript("OnEnterPressed", SaveThresholds)
 
-    Label(panel, "Critical warning sound", 16, -252, "GameFontNormal")
+    Label(panel, "Warning sound", 16, -252, "GameFontNormal")
     local sound = CreateFrame("DropdownButton", nil, panel, "WowStyle1DropdownTemplate")
     sound:SetPoint("TOPLEFT", 16, -271)
     sound:SetWidth(166)
@@ -155,5 +206,9 @@ function addon.RegisterSettings()
     end)
     panel:SetScript("OnShow", SyncControls)
     addon.category = Settings.RegisterCanvasLayoutCategory(panel, "AmmoLeft")
+    local popupCategory = RegisterPopupSettings(addon.category)
+    Button(panel, "Pop-up alerts", 160, -387, 133, function()
+        Settings.OpenToCategory(popupCategory:GetID())
+    end)
     Settings.RegisterAddOnCategory(addon.category)
 end
