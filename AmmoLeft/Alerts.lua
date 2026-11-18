@@ -2,7 +2,9 @@ local _, addon = ...
 
 local defaultMessages = { low = "Low ammo!", critical = "Critical ammo!" }
 
-local popup = CreateFrame("Frame", nil, UIParent)
+local popup = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+popup:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+popup:SetBackdropColor(0.035, 0.075, 0.060, 0.93)
 popup:SetSize(380, 100)
 popup:SetFrameStrata("TOOLTIP")
 popup:SetMovable(true)
@@ -41,44 +43,48 @@ local function Place()
     end
 end
 
-local function SetMessage(level)
+local function SetMessage(level, count)
     local message = addon.options[level .. "Message"]:match("^%s*(.-)%s*$")
     if message == "" then
         message = defaultMessages[level]
     end
+    message = message:gsub("{count}", tostring(count or addon.options[level]))
     text:SetText((message:gsub("|", "||")))
     text:SetTextColor(unpack(addon.options[level .. "Color"]))
+    popup:SetBackdropBorderColor(unpack(addon.options[level .. "Color"]))
 end
 
-local function ShowAlert(level, preview)
+local function ShowAlert(level, preview, count)
     if moving or (not preview and level == "low" and activeLevel == "critical") then
         return
     end
     CancelTimer()
     Place()
-    SetMessage(level)
+    SetMessage(level, count)
     activeLevel = level
     popup:Show()
-    timer = C_Timer.NewTimer(3, function()
+    timer = C_Timer.NewTimer(addon.options[level .. "Duration"], function()
         timer, activeLevel = nil, nil
         popup:Hide()
     end)
 end
 
-function addon.Notify(level)
+function addon.Notify(level, count)
     local enabled = addon.options[level .. "Popup"]
     if enabled then
-        ShowAlert(level)
+        ShowAlert(level, false, count)
     end
     if enabled or level == "critical" then
-        addon.PlayWarning()
+        addon.PlayWarning(level)
     end
+    if addon.options[level .. "Pulse"] then addon.PulseCounter(level) end
 end
 
 function addon.PreviewAlert(level)
     addon.StopMovingAlert()
     ShowAlert(level, true)
-    addon.PlayWarning()
+    addon.PlayWarning(level)
+    if addon.options[level .. "Pulse"] then addon.PulseCounter(level) end
 end
 
 local function StopDrag(self)
@@ -91,6 +97,7 @@ local function StopDrag(self)
     if x and y then
         AmmoLeftDB.popupX = x - UIParent:GetLeft()
         AmmoLeftDB.popupY = y - UIParent:GetBottom()
+        addon.SavePositions()
     end
 end
 

@@ -1,5 +1,13 @@
 # Ammoleft Forever changelog
 
+## 2.0.0
+
+- Added shared profiles, settings copying, and per-character position copying.
+- Added compatible reserve ammunition to the counter tooltip.
+- Added separate alert sounds, durations, optional pulses, and the `{count}` message placeholder.
+- Added manual restock quotes and optional automatic restock with a spending cap.
+- Updated the counter, alerts, minimap button, and settings to match the dark green and bronze icon.
+
 ## 1.3.2
 
 - Added an item tooltip when hovering over the counter's ammunition icon.

@@ -17,7 +17,7 @@ function addon.CreateMinimapButton()
     local icon = button:CreateTexture(nil, "ARTWORK")
     icon:SetSize(18, 18)
     icon:SetPoint("CENTER")
-    icon:SetAtlas("Ammunition")
+    icon:SetTexture(C_AddOns.GetAddOnMetadata(addonName, "IconTexture"))
 
     local border = button:CreateTexture(nil, "OVERLAY")
     border:SetSize(53, 53)
@@ -35,6 +35,7 @@ function addon.CreateMinimapButton()
         button:SetPoint("CENTER", Minimap, "CENTER",
             x * (Minimap:GetWidth() / 2 + 5), y * (Minimap:GetHeight() / 2 + 5))
     end
+    addon.PlaceMinimap = Position
 
     local function TrackCursor()
         local centerX, centerY = Minimap:GetCenter()
@@ -68,6 +69,7 @@ function addon.CreateMinimapButton()
     local function StopDrag(self)
         self:SetScript("OnUpdate", nil)
         self:UnlockHighlight()
+        addon.SavePositions()
     end
     button:SetScript("OnDragStop", StopDrag)
     button:SetScript("OnHide", StopDrag)
