@@ -3,6 +3,10 @@ local readable = addon.IsReadable
 local panel, summary, button
 local visit, order, displayed, waiting, merchantHooked
 
+local function FormatCost(copper)
+    return C_CurrencyInfo.GetCoinTextureString(copper)
+end
+
 local function Number(value)
     if readable(value) and type(value) == "number" then return value end
 end
@@ -49,7 +53,8 @@ local function Finish(reason)
     local finished = order
     order = nil
     if finished then
-        local message = ("Bought %d for %s. %s"):format(finished.units, GetCoinTextureString(finished.spent), reason or "")
+        local message = ("Confirmed: %d ammo for %s."):format(finished.units, FormatCost(finished.spent))
+        if reason then message = message .. " " .. reason end
         print("Ammoleft Forever: " .. message)
         if visit then
             visit.result = message
@@ -121,7 +126,7 @@ function addon.RefreshRestock()
     displayed = q
     if q then
         summary:SetText(("%s\n%d / %d ammo · Need %d\nBuy %d for %s%s"):format(q.name, q.carried, q.target,
-            q.target - q.carried, q.count * q.bundle, GetCoinTextureString(q.count * q.price),
+            q.target - q.carried, q.count * q.bundle, FormatCost(q.count * q.price),
             q.count < q.wanted and " (partial)" or ""))
     else
         summary:SetText(visit.result or reason)

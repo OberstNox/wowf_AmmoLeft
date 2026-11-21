@@ -1,5 +1,9 @@
 # Ammoleft Forever changelog
 
+## 2.0.2
+
+- Fixed merchant price displays and purchase summaries to use the Forever currency API.
+
 ## 2.0.1
 
 - Moved the counter preview below the appearance sliders and labeled its sample count.
