@@ -1,5 +1,9 @@
 # Ammoleft Forever changelog
 
+## 2.0.3
+
+- The ammunition counter now hides automatically on flight paths and reappears after landing.
+
 ## 2.0.2
 
 - Fixed merchant price displays and purchase summaries to use the Forever currency API.

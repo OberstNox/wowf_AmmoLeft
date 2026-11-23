@@ -256,6 +256,13 @@ end
 frame:SetScript("OnDragStop", StopDrag)
 frame:SetScript("OnHide", StopDrag)
 
+local function UpdateCounterVisibility()
+    local onTaxi = UnitOnTaxi("player")
+    if IsReadable(onTaxi) then
+        frame:SetShown(not onTaxi)
+    end
+end
+
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", function(self, event)
     if event == "PLAYER_LOGIN" then
@@ -270,13 +277,22 @@ frame:SetScript("OnEvent", function(self, event)
         Place()
         ApplyAppearance()
         UpdateMouse()
-        self:Show()
+        UpdateCounterVisibility()
         self:RegisterEvent("PLAYER_ENTERING_WORLD")
+        self:RegisterEvent("PLAYER_CONTROL_LOST")
+        self:RegisterEvent("PLAYER_CONTROL_GAINED")
         self:RegisterEvent("BAG_UPDATE_DELAYED")
         self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
         self:RegisterUnitEvent("UNIT_INVENTORY_CHANGED", "player")
         self:RegisterEvent("PLAYER_REGEN_ENABLED")
         self:RegisterEvent("MODIFIER_STATE_CHANGED")
+    elseif event == "PLAYER_ENTERING_WORLD" then
+        UpdateCounterVisibility()
+    elseif event == "PLAYER_CONTROL_LOST" or event == "PLAYER_CONTROL_GAINED" then
+        UpdateCounterVisibility()
+        -- Taxi status can lag behind the control event.
+        C_Timer.After(0.25, UpdateCounterVisibility)
+        return
     elseif event == "MODIFIER_STATE_CHANGED" then
         UpdateMouse()
         return

@@ -3,7 +3,7 @@
 ## IconTexture: Interface\AddOns\AmmoLeft\Icon.tga
 ## Notes: Shows how much of your selected ammunition you have left.
 ## Author: OberstNox
-## Version: 2.0.2
+## Version: 2.0.3
 ## SavedVariables: AmmoLeftProfiles
 ## SavedVariablesPerCharacter: AmmoLeftDB
 
